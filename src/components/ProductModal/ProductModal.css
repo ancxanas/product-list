@@ -1,0 +1,109 @@
+.product-modal-container {
+  position: absolute;
+  border: 1px solid #ccc;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  margin: 16px;
+  width: 80%;
+}
+
+.product-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-modal {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  padding: 16px;
+}
+
+.product-modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-modal-title {
+  font-family: "Montserrat", sans-serif;
+}
+
+.product-modal-close-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-modal-close-button:hover {
+  background-color: #0056b3;
+}
+
+.product-modal-content {
+  display: flex;
+}
+
+.product-modal-image-container {
+  flex: 1;
+  width: 50%;
+  height: 100%;
+  padding: 16px;
+  margin: 16px;
+}
+
+.product-modal-image {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+}
+
+.product-modal-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  margin: 16px;
+}
+
+.product-modal-category,
+.product-modal-price,
+.product-modal-description,
+.product-modal-rating {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.category-label,
+.price-label,
+.description-label,
+.rating-label {
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+  text-transform: uppercase;
+}
+
+.category-value {
+  text-transform: uppercase;
+}
+
+.price-value {
+  font-size: 1.5em;
+}
