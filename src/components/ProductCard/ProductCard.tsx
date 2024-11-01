@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Product } from "../../types/product";
 import "./ProductCard.css";
 import ProductModal from "../ProductModal/ProductModal";
+import { useProductModal } from "../../contexts/ProductModalContext";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleShowDetails = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const { isModalOpen, openModal, closeModal } = useProductModal();
 
   return (
     <div className="product-card">
@@ -38,13 +31,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </p>
       </div>
 
-      <button onClick={handleShowDetails} className="product-show-details">
+      <button onClick={openModal} className="product-show-details">
         Show Details
       </button>
 
       <ProductModal
         isOpen={isModalOpen}
-        onRequestClose={handleCloseModal}
+        onRequestClose={closeModal}
         product={product}
       />
     </div>

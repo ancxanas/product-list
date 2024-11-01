@@ -8,7 +8,7 @@ interface ProductCardViewProps {
 
 const ProductCardView: React.FC<ProductCardViewProps> = ({ products }) => {
   return (
-    <div className="product-card-view-container">
+    <div className="product-card-view">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

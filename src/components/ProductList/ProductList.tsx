@@ -4,6 +4,7 @@ import { View } from "../../types/view";
 import productService from "../../services/product";
 import "./ProductList.css";
 import ProductCardView from "../ProductCardView/ProductCardView";
+import ProductTableView from "../ProductTableView/ProductTableView";
 
 const ProductList = () => {
   const [view, setView] = useState<View>("card");
@@ -25,7 +26,11 @@ const ProductList = () => {
         Card
       </button>
       <div className="product-list">
-        {view === "card" ? <ProductCardView products={products} /> : "hello"}
+        {view === "card" ? (
+          <ProductCardView products={products} />
+        ) : (
+          <ProductTableView products={products} />
+        )}
       </div>
     </div>
   );

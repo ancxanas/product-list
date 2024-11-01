@@ -5,7 +5,7 @@ import "./ProductModal.css";
 interface ProductModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  product: Product | null;
+  product: Product;
 }
 
 Modal.setAppElement("#root");
