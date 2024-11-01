@@ -31,6 +31,7 @@
 
 .product-modal-header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -38,8 +39,13 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.product-modal-close-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .product-modal-close-button {
-  background-color: #007bff;
+  background-color: #009879;
   color: white;
   border: none;
   border-radius: 50%;
@@ -51,7 +57,7 @@
 }
 
 .product-modal-close-button:hover {
-  background-color: #0056b3;
+  background-color: #007a63;
 }
 
 .product-modal-content {

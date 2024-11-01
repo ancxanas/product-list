@@ -1,29 +1,39 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { Product } from "../types/product";
 
 interface ProductModalContextProps {
   isModalOpen: boolean;
-  openModal: () => void;
+  openModal: (product: Product) => void;
   closeModal: () => void;
+  selectedProduct: Product | null;
 }
 
 const ProductModalContext = createContext<ProductModalContextProps>({
   isModalOpen: false,
   openModal: () => {},
   closeModal: () => {},
+  selectedProduct: null,
 });
 
 const ProductModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const openModal = () => setIsModalOpen(true);
+  const openModal = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
 
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setSelectedProduct(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <ProductModalContext.Provider
-      value={{ isModalOpen, openModal, closeModal }}
+      value={{ isModalOpen, selectedProduct, openModal, closeModal }}
     >
       {children}
     </ProductModalContext.Provider>

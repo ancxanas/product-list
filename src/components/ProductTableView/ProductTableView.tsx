@@ -8,7 +8,8 @@ interface ProductTableViewProps {
 }
 
 const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
-  const { isModalOpen, openModal, closeModal } = useProductModal();
+  const { isModalOpen, openModal, closeModal, selectedProduct } =
+    useProductModal();
 
   return (
     <div className="product-table-view">
@@ -40,14 +41,19 @@ const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
                 Rating: {product.rating.rate} ({product.rating.count} reviews)
               </td>
               <td>
-                <button onClick={openModal} className="product-show-details">
+                <button
+                  onClick={() => openModal(product)}
+                  className="product-show-details"
+                >
                   Show Details
                 </button>
-                <ProductModal
-                  isOpen={isModalOpen}
-                  onRequestClose={closeModal}
-                  product={product}
-                />
+                {isModalOpen && selectedProduct?.id === product.id && (
+                  <ProductModal
+                    isOpen={isModalOpen}
+                    onRequestClose={closeModal}
+                    product={selectedProduct}
+                  />
+                )}
               </td>
             </tr>
           ))}

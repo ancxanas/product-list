@@ -27,13 +27,17 @@ const ProductModal: React.FC<ProductModalProps> = ({
     >
       <div className="product-modal">
         <div className="product-modal-header">
-          <h1 className="product-modal-title">{product.title}</h1>
-          <button
-            className="product-modal-close-button"
-            onClick={onRequestClose}
-          >
-            &times;
-          </button>
+          <div className="product-modal-close-button-container">
+            <button
+              className="product-modal-close-button"
+              onClick={onRequestClose}
+            >
+              &times;
+            </button>
+          </div>
+          <div>
+            <h1 className="product-modal-title">{product.title}</h1>
+          </div>
         </div>
         <div className="product-modal-content">
           <div className="product-modal-image-container">

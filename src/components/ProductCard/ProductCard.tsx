@@ -9,7 +9,8 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { isModalOpen, openModal, closeModal } = useProductModal();
+  const { isModalOpen, openModal, closeModal, selectedProduct } =
+    useProductModal();
 
   return (
     <div className="product-card">
@@ -31,15 +32,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </p>
       </div>
 
-      <button onClick={openModal} className="product-show-details">
+      <button
+        onClick={() => openModal(product)}
+        className="product-show-details"
+      >
         Show Details
       </button>
 
-      <ProductModal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        product={product}
-      />
+      {isModalOpen && selectedProduct?.id === product.id && (
+        <ProductModal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          product={selectedProduct}
+        />
+      )}
     </div>
   );
 };
