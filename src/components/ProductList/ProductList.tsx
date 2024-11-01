@@ -5,6 +5,7 @@ import productService from "../../services/product";
 import "./ProductList.css";
 import ProductCardView from "../ProductCardView/ProductCardView";
 import ProductTableView from "../ProductTableView/ProductTableView";
+import ViewToggleButtons from "../ViewToggleButtons/ViewToggleButtons";
 
 const ProductList = () => {
   const [view, setView] = useState<View>("card");
@@ -18,13 +19,12 @@ const ProductList = () => {
 
   return (
     <div className="product-list-container">
-      <h1 className="product-list-title">Product List</h1>
-      <button className="table-view-button" onClick={() => setView("table")}>
-        Table
-      </button>
-      <button className="card-view-button" onClick={() => setView("card")}>
-        Card
-      </button>
+      <div className="product-list-header">
+        <ViewToggleButtons view={view} setView={setView} />
+        <div>
+          <h1 className="product-list-title">Product List</h1>
+        </div>
+      </div>
       <div className="product-list">
         {view === "card" ? (
           <ProductCardView products={products} />
