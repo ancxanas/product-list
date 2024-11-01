@@ -1,10 +1,15 @@
+import { useProductModal } from "../../contexts/ProductModalContext";
 import { Product } from "../../types/product";
+import ProductModal from "../ProductModal/ProductModal";
+import "./ProductTableView.css";
 
 interface ProductTableViewProps {
   products: Product[];
 }
 
 const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
+  const { isModalOpen, openModal, closeModal } = useProductModal();
+
   return (
     <div className="product-table-view">
       <table>
@@ -28,22 +33,19 @@ const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
                   className="product-table-image"
                 />
               </td>
-              <td>{product.category.toUpperCase()}</td>
+              <td>{product.category}</td>
               <td>{product.title}</td>
               <td>${product.price}</td>
               <td>
                 Rating: {product.rating.rate} ({product.rating.count} reviews)
               </td>
               <td>
-                <button
-                  onClick={handleShowDetails}
-                  className="product-show-details"
-                >
+                <button onClick={openModal} className="product-show-details">
                   Show Details
                 </button>
                 <ProductModal
                   isOpen={isModalOpen}
-                  onRequestClose={handleCloseModal}
+                  onRequestClose={closeModal}
                   product={product}
                 />
               </td>
