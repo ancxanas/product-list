@@ -1,12 +1,19 @@
-import { Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Product } from "../../types/product";
 import { View } from "../../types/view";
 import productService from "../../services/product";
 import "./ProductList.css";
-import ProductCardView from "../ProductCardView/ProductCardView";
-import ProductTableView from "../ProductTableView/ProductTableView";
+//import ProductCardView from "../ProductCardView/ProductCardView";
+//import ProductTableView from "../ProductTableView/ProductTableView";
 import ViewToggleButtons from "../ViewToggleButtons/ViewToggleButtons";
 import Loading from "../Loading/Loading";
+
+const ProductCardView = lazy(
+  () => import("../ProductCardView/ProductCardView")
+);
+const ProductTableView = lazy(
+  () => import("../ProductTableView/ProductTableView")
+);
 
 const ProductList = () => {
   const [view, setView] = useState<View>("card");

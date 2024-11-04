@@ -8,8 +8,6 @@ interface ProductModalProps {
   product: Product;
 }
 
-Modal.setAppElement("#root");
-
 const ProductModal: React.FC<ProductModalProps> = ({
   isOpen,
   onRequestClose,
