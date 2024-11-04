@@ -16,12 +16,12 @@ const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
       <table>
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Category</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Rating</th>
-            <th>Details</th>
+            <th scope="col">Image</th>
+            <th scope="col">Category</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Details</th>
           </tr>
         </thead>
         <tbody>
@@ -38,12 +38,22 @@ const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
               <td>{product.title}</td>
               <td>${product.price}</td>
               <td>
-                Rating: {product.rating.rate} ({product.rating.count} reviews)
+                <span aria-label={`Rating: ${product.rating.rate} out of 5`}>
+                  Rating: {product.rating.rate}
+                </span>
+                <span aria-label={`${product.rating.count} reviews`}>
+                  ({product.rating.count} reviews)
+                </span>
               </td>
               <td>
                 <button
                   onClick={() => openModal(product)}
                   className="product-show-details"
+                  aria-haspopup="dialog"
+                  aria-expanded={
+                    isModalOpen && selectedProduct?.id === product.id
+                  }
+                  aria-controls={`productModal-${product.id}`}
                 >
                   Show Details
                 </button>

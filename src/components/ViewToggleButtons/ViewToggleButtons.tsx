@@ -9,12 +9,14 @@ const ViewToggleButtons: React.FC<ViewToggleButtonsProps> = ({
   view,
   setView,
 }) => (
-  <div>
+  <div role="group" aria-label="View Toggle">
     <button
       className={`view-toggle-button table-view-button ${
         view === "table" ? "active" : ""
       }`}
       onClick={() => setView("table")}
+      aria-pressed={view === "table"}
+      aria-label="Switch to table view"
     >
       Table
     </button>
@@ -23,6 +25,8 @@ const ViewToggleButtons: React.FC<ViewToggleButtonsProps> = ({
         view === "card" ? "active" : ""
       }`}
       onClick={() => setView("card")}
+      aria-pressed={view === "card"}
+      aria-label="Switch to card view"
     >
       Card
     </button>

@@ -24,6 +24,10 @@ const ProductModal: React.FC<ProductModalProps> = ({
       onRequestClose={onRequestClose}
       contentLabel="Product Details"
       overlayClassName="product-modal-overlay"
+      aria={{
+        labelledby: "product-modal-title",
+        describedby: "product-modal-content",
+      }}
     >
       <div className="product-modal">
         <div className="product-modal-header">
@@ -31,15 +35,18 @@ const ProductModal: React.FC<ProductModalProps> = ({
             <button
               className="product-modal-close-button"
               onClick={onRequestClose}
+              aria-label="Close product details"
             >
               &times;
             </button>
           </div>
           <div>
-            <h1 className="product-modal-title">{product.title}</h1>
+            <h1 className="product-modal-title" id="product-modal-title">
+              {product.title}
+            </h1>
           </div>
         </div>
-        <div className="product-modal-content">
+        <div className="product-modal-content" id="product-modal-content">
           <div className="product-modal-image-container">
             <img
               className="product-modal-image"

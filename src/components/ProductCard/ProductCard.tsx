@@ -13,7 +13,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     useProductModal();
 
   return (
-    <div className="product-card">
+    <div
+      className="product-card"
+      role="region"
+      aria-labelledby={`product-title-${product.id}`}
+    >
       <div className="product-image-container">
         <img
           src={product.image}
@@ -22,19 +26,33 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
       </div>
       <div className="product-details-container">
-        <p className="product-card-category">
+        <p
+          className="product-card-category"
+          id={`product-category-${product.id}`}
+        >
           {product.category.toUpperCase()}
         </p>
-        <h2 className="product-card-title">{product.title}</h2>
-        <p className="product-card-price">${product.price}</p>
-        <p className="product-card-rating">
-          Rating: {product.rating.rate} ({product.rating.count} reviews)
+        <h2 className="product-card-title" id={`product-title-${product.id}`}>
+          {product.title}
+        </h2>
+        <p className="product-card-price" id={`product-price-${product.id}`}>
+          ${product.price}
+        </p>
+        <p
+          className="product-card-rating"
+          aria-label={`Rating: ${product.rating.rate} out of 5`}
+        >
+          Rating: {product.rating.rate}{" "}
+          <span aria-hidden="true">({product.rating.count} reviews) </span>
         </p>
       </div>
 
       <button
         onClick={() => openModal(product)}
         className="product-show-details"
+        aria-haspopup="dialog"
+        aria-expanded={isModalOpen && selectedProduct?.id === product.id}
+        aria-controls={`productModal-${product.id}`}
       >
         Show Details
       </button>
