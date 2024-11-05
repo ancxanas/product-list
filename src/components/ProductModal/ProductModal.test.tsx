@@ -1,23 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ProductModal from "../ProductModal/ProductModal"; // Adjust the import path as necessary
-import { Product } from "../../types/product";
 import Modal from "react-modal";
+import { mockProducts } from "@/mocks/mockProducts";
 
 Modal.setAppElement(document.createElement("div"));
 
-const mockProduct: Product = {
-  id: 101,
-  title: "Wireless Noise Cancelling Headphones",
-  price: 299.99,
-  description:
-    "Experience world-class sound quality with our wireless noise-cancelling headphones, featuring long battery life and comfortable ear cushions.",
-  category: "electronics",
-  image: "https://picsum.photos/200/300",
-  rating: {
-    rate: 4.7,
-    count: 2750,
-  },
-};
+const mockProduct = mockProducts[0];
 
 describe("ProductModal", () => {
   test("renders the modal with product details when open", () => {

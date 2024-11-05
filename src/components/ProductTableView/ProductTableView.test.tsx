@@ -1,10 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import ProductCard from "../ProductCard/ProductCard"; // Adjust the import path as necessary
+import ProductTableView from "../ProductTableView/ProductTableView"; // Adjust the import path as necessary
+import { useProductModal } from "../../contexts/ProductModalContext";
 import Modal from "react-modal";
-import { useProductModal } from "@/contexts/ProductModalContext";
 import { mockProducts } from "@/mocks/mockProducts";
-
-const mockProduct = mockProducts[0];
 
 Modal.setAppElement(document.createElement("div"));
 
@@ -12,7 +10,7 @@ jest.mock("../../contexts/ProductModalContext");
 
 const mockUseProductModal = useProductModal as jest.Mock;
 
-describe("ProductCard", () => {
+describe("ProductTableView", () => {
   beforeEach(() => {
     mockUseProductModal.mockReturnValue({
       isModalOpen: false,
@@ -22,19 +20,24 @@ describe("ProductCard", () => {
     });
   });
 
-  test("renders the product card with product details", () => {
-    render(<ProductCard product={mockProduct} />);
+  test("renders the product table with product details", () => {
+    render(<ProductTableView products={mockProducts} />);
 
-    expect(screen.getByRole("region")).toBeInTheDocument();
-    expect(
-      screen.getByRole("img", { name: /wireless noise cancelling headphones/i })
-    ).toBeInTheDocument();
-    expect(screen.getByText(/electronics/i)).toBeInTheDocument();
-    expect(
-      screen.getByText(/wireless noise cancelling headphones/i)
-    ).toBeInTheDocument();
-    expect(screen.getByText(/\$299.99/i)).toBeInTheDocument();
-    expect(screen.getByText(/rating: 4.7/i)).toBeInTheDocument();
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getAllByRole("row")).toHaveLength(mockProducts.length + 1);
+
+    mockProducts.forEach((product) => {
+      expect(screen.getByAltText(product.title)).toBeInTheDocument();
+      expect(screen.getByText(product.title)).toBeInTheDocument();
+      expect(screen.getAllByText(product.category)).toHaveLength(2);
+      expect(screen.getByText(`$${product.price}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Rating: ${product.rating.rate}`)
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(`(${product.rating.count} reviews)`)
+      ).toBeInTheDocument();
+    });
   });
 
   test("calls openModal when 'Show Details' button is clicked", () => {
@@ -46,14 +49,14 @@ describe("ProductCard", () => {
       selectedProduct: null,
     });
 
-    render(<ProductCard product={mockProduct} />);
+    render(<ProductTableView products={mockProducts} />);
 
-    const showDetailsButton = screen.getByRole("button", {
+    const showDetailsButtons = screen.getAllByRole("button", {
       name: /show details/i,
     });
-    fireEvent.click(showDetailsButton);
+    fireEvent.click(showDetailsButtons[0]);
 
-    expect(openModalMock).toHaveBeenCalledWith(mockProduct);
+    expect(openModalMock).toHaveBeenCalledWith(mockProducts[0]);
   });
 
   test("renders the modal with product details when modal is open", () => {
@@ -61,10 +64,10 @@ describe("ProductCard", () => {
       isModalOpen: true,
       openModal: jest.fn(),
       closeModal: jest.fn(),
-      selectedProduct: mockProduct,
+      selectedProduct: mockProducts[0],
     });
 
-    render(<ProductCard product={mockProduct} />);
+    render(<ProductTableView products={mockProducts} />);
 
     const modalContent = screen.getByRole("dialog");
     expect(modalContent).toBeInTheDocument();
@@ -78,10 +81,10 @@ describe("ProductCard", () => {
       isModalOpen: false,
       openModal: jest.fn(),
       closeModal: jest.fn(),
-      selectedProduct: mockProduct,
+      selectedProduct: mockProducts[0],
     });
 
-    render(<ProductCard product={mockProduct} />);
+    render(<ProductTableView products={mockProducts} />);
 
     const modalContent = screen.queryByRole("dialog");
     expect(modalContent).not.toBeInTheDocument();
@@ -93,12 +96,14 @@ describe("ProductCard", () => {
       isModalOpen: true,
       openModal: jest.fn(),
       closeModal: closeModalMock,
-      selectedProduct: mockProduct,
+      selectedProduct: mockProducts[0],
     });
 
-    render(<ProductCard product={mockProduct} />);
+    render(<ProductTableView products={mockProducts} />);
 
-    const closeButton = screen.getByRole("button", { name: /close/i });
+    const closeButton = screen.getByRole("button", {
+      name: /close product details/i,
+    });
     fireEvent.click(closeButton);
 
     expect(closeModalMock).toHaveBeenCalled();

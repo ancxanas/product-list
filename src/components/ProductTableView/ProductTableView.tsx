@@ -26,7 +26,7 @@ const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr>
+            <tr key={product.id}>
               <td>
                 <img
                   src={product.image}
