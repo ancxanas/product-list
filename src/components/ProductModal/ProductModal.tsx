@@ -35,7 +35,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
               onClick={onRequestClose}
               aria-label="Close product details"
             >
-              &times;
+              Close
             </button>
           </div>
           <div>
