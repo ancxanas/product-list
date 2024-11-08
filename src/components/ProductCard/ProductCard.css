@@ -7,7 +7,6 @@
   padding: 16px;
   margin: 16px;
   max-width: 300px;
-  height: 370px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
   font-family: "Roboto", sans-serif;
@@ -34,9 +33,13 @@
 }
 
 .product-card-title {
+  display: block;
   font-family: "Montserrat", sans-serif;
   font-size: 1.2em;
   margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .product-card-price {
