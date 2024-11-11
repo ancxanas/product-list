@@ -12,14 +12,14 @@ interface usePaginationProps {
   currentPage: number;
 }
 
+export const DOTS = "...";
+
 export const usePagination: React.FC<usePaginationProps> = ({
   totalCount,
   pageSize,
   siblingCount = 1,
   currentPage,
 }) => {
-  const DOTS = "...";
-
   const paginationRange = useMemo(() => {
     const totalPageCount = Math.ceil(totalCount / pageSize);
 
