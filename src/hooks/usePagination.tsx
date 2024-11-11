@@ -5,22 +5,24 @@ const range = (start: number, end: number) => {
   return Array.from({ length }, (_, idx) => idx + start);
 };
 
-interface usePaginationProps {
+type PaginationRange = (number | typeof DOTS)[];
+
+interface UsePaginationProps {
   totalCount: number;
   pageSize: number;
-  siblingCount: number;
+  siblingCount?: number;
   currentPage: number;
 }
 
 export const DOTS = "...";
 
-export const usePagination: React.FC<usePaginationProps> = ({
+export const usePagination = ({
   totalCount,
   pageSize,
   siblingCount = 1,
   currentPage,
-}) => {
-  const paginationRange = useMemo(() => {
+}: UsePaginationProps): PaginationRange => {
+  const paginationRange: PaginationRange = useMemo(() => {
     const totalPageCount = Math.ceil(totalCount / pageSize);
 
     const totalPageNumbers = siblingCount + 5;
@@ -62,6 +64,8 @@ export const usePagination: React.FC<usePaginationProps> = ({
       const middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
+
+    return range(1, totalPageCount);
   }, [totalCount, pageSize, siblingCount, currentPage]);
 
   return paginationRange;

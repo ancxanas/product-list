@@ -2,7 +2,7 @@ import { useProductModal } from "../../contexts/ProductModalContext";
 import { Product } from "../../types/product";
 import ProductModal from "../ProductModal/ProductModal";
 import "./ProductTableView.css";
-
+import { SHOW_DETAILS } from "@/constant";
 interface ProductTableViewProps {
   products: Product[];
 }
@@ -39,7 +39,7 @@ const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
               <td>${product.price}</td>
               <td>
                 <span aria-label={`Rating: ${product.rating.rate} out of 5`}>
-                  Rating: {product.rating.rate}
+                  {product.rating.rate}
                 </span>
                 <span aria-label={`${product.rating.count} reviews`}>
                   ({product.rating.count} reviews)
@@ -55,7 +55,7 @@ const ProductTableView: React.FC<ProductTableViewProps> = ({ products }) => {
                   }
                   aria-controls={`productModal-${product.id}`}
                 >
-                  Show Details
+                  {SHOW_DETAILS}
                 </button>
                 {isModalOpen && selectedProduct?.id === product.id && (
                   <ProductModal
