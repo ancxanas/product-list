@@ -18,7 +18,7 @@ const ProductTableView = lazy(
 const PageSize = 10;
 
 const ProductList = () => {
-  const [view, setView] = useState<View>(viewType.TABLE_VIEW);
+  const [view, setView] = useState<View>(viewType.CARD_VIEW);
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
